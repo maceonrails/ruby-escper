@@ -161,32 +161,7 @@ module Escper
               Escper.log "[open]   TCPSocket ERROR: Connection refused at IP #{ ip_addr} on port #{ port }. Skipping this printer."
               next
             rescue Timeout::Error
-              Escper.log "[open]   TCPSocket ERROR: Timeout #{ ip_addr} on port #{ port }. Try reconnect this printer."
-              begin
-                  printer = nil
-                  Escper.log "[open]   Attempting to open TCPSocket at #{ ip_addr} on port #{ port } ... "
-                  Timeout.timeout(3) do
-                    printer = TCPSocket.new ip_addr, port
-                  end
-                  Escper.log "[open]   Success for TCPSocket: #{ printer.inspect }"
-                  @open_printers.merge! pid => {
-                    :name => name,
-                    :path => path,
-                    :copies => p.copies,
-                    :device => printer,
-                    :codepage => codepage
-                  }
-                  next
-                rescue Errno::ECONNREFUSED
-                  Escper.log "[open]   TCPSocket ERROR: Connection refused at IP #{ ip_addr} on port #{ port }. Skipping this printer."
-                  next
-                rescue Timeout::Error
-                  Escper.log "[open]   TCPSocket ERROR: Timeout #{ ip_addr} on port #{ port }. Skipping this printer."
-                  next
-                rescue => e
-                  Escper.log "[open]   TCPSocket ERROR: Failed to open: #{ e.inspect }"
-                  next
-                end
+              Escper.log "[open]   TCPSocket ERROR: Timeout #{ ip_addr} on port #{ port }. Skipping this printer."
               next
             rescue => e
               Escper.log "[open]   TCPSocket ERROR: Failed to open: #{ e.inspect }"
