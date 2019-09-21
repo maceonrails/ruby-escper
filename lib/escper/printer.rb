@@ -169,11 +169,11 @@ module Escper
             end
           else
             Escper.log "[open]   Path #{ path } is not in IP:port format. Not trying to open printer as TCPSocket."
-            raise Exception.new "Failed to print, wrong IP"
+            # raise Exception.new "Failed to print, wrong IP"
           end
         else
           Escper.log "[open]   Mode is #{ @mode }. Not trying to open printer as TCPSocket."
-          raise Exception.new "Failed to print, wrong mode"
+          # raise Exception.new "Failed to print, wrong mode"
         end
         
         # ================ SERIALPORT PRINTERS =============================
@@ -190,7 +190,7 @@ module Escper
           next
         rescue => e
           Escper.log "[open]   Failed to open as SerialPort: #{ e.inspect }"
-          raise Exception.new "Failed to print, wrong mode"
+          # raise Exception.new "Failed to print, wrong mode"
         end
 
         
@@ -236,7 +236,7 @@ module Escper
               :codepage => codepage
             }
             Escper.log "[open]      Failed to open as either SerialPort or USB File and resource IS busy. This should not have happened. Created #{ printer.inspect } instead."
-            raise Exception.new "Failed to print, SerialPort or USB is busy"
+            # raise Exception.new "Failed to print, SerialPort or USB is busy"
           end
           next
         rescue => e
@@ -250,7 +250,7 @@ module Escper
             :codepage => codepage
           }
           Escper.log "[open]    Failed to open as either SerialPort or USB File and resource is NOT busy. Created #{ printer.inspect } instead."
-          raise Exception.new "Failed to print, Failed to open as either SerialPort or USB"
+          # raise Exception.new "Failed to print, Failed to open as either SerialPort or USB"
         end
       end
     end
